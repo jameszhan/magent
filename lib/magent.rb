@@ -60,7 +60,7 @@ module Magent
   end
 
   def self.database
-    @@database ||= Magent.connection.db(@@database_name)
+    @@database ||= Magent.connection.databases(@@database_name)
   end
 
   def self.config
