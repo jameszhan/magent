@@ -83,7 +83,7 @@ module Magent
     raise 'Set config before connecting. Magent.config = {...}' if config.nil? || config.empty?
 
     env = config_for_environment(environment)
-    Magent.session = Moped::Session.new([env['host'] + ":" + env['port']], options)
+    Magent.session = Moped::Session.new(["%s:%d"%[env['host'],env['port']]], options)
     Magent.database = env['database']
     Magent.database.authenticate(env['username'], env['password']) if env['username'] && env['password']
   end
