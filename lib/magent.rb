@@ -34,15 +34,24 @@ module Magent
   }
 
   def self.connection
-    @@connection ||= Moped::Connection.new
+#    @@connection ||= Moped::Connection.new
+    session
   end
 
+  def self.session
+    @@session ||= Moped::Session.new
+  end
   def self.logger
-    connection.logger
+#    connection.logger
+    session.logger
   end
 
   def self.connection=(new_connection)
     @@connection = new_connection
+  end
+  
+  def self.session=(new_session)
+    @@session = new_session
   end
 
   def self.database=(name)
@@ -74,7 +83,7 @@ module Magent
     raise 'Set config before connecting. Magent.config = {...}' if config.nil? || config.empty?
 
     env = config_for_environment(environment)
-    Magent.connection = Moped::Connection.new(env['host'], env['port'], options[:timeout])
+    Magent.session = Moped::Session.new([env['host'] + ":" + env['port']], options)
     Magent.database = env['database']
     Magent.database.authenticate(env['username'], env['password']) if env['username'] && env['password']
   end
