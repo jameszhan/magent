@@ -18,7 +18,7 @@ module MagentWeb
       alias_method :h, :escape_html
     end
 
-    set :public, File.expand_path("../../../public", __FILE__)
+    set :public_folder, File.expand_path("../../../public", __FILE__)
     set :views, File.expand_path("../../../lib/magent_web/views", __FILE__)
 
     before do
