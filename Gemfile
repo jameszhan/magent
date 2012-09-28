@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'mongo'
-gem 'bson_ext', :require => 'bson'
+gem 'moped'
+
 gem 'uuidtools'
 
 gem 'em-websocket'

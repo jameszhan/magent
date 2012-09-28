@@ -2,7 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 require 'rubygems'
-require 'mongo'
+require 'moped'
 require 'set'
 require 'uuidtools'
 
@@ -34,7 +34,7 @@ module Magent
   }
 
   def self.connection
-    @@connection ||= Mongo::Connection.new
+    @@connection ||= Moped::Connection.new
   end
 
   def self.logger
@@ -74,7 +74,7 @@ module Magent
     raise 'Set config before connecting. Magent.config = {...}' if config.nil? || config.empty?
 
     env = config_for_environment(environment)
-    Magent.connection = Mongo::Connection.new(env['host'], env['port'], options)
+    Magent.connection = Moped::Connection.new(env['host'], env['port'], options[:timeout])
     Magent.database = env['database']
     Magent.database.authenticate(env['username'], env['password']) if env['username'] && env['password']
   end
